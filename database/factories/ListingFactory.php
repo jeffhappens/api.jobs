@@ -19,6 +19,8 @@ class ListingFactory extends Factory
         return [
             'title' => fake()->company(),
             'company_id' => \App\Models\Company::all()->random()->id,
+            'latitude' => fake()->latitude(),
+            'longitude' => fake()->longitude(),
             'description' => fake()->sentence( fake()->numberBetween(50, 150) ),
             'apply_link' => fake()->url()
         ];
