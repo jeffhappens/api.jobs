@@ -42,7 +42,7 @@ Open .env and enter the values for:
 
 
 
-Run the migration and (optionally) seed the database. Check out app/
+Run the migration and (optionally) seed the database. See database/factories and database/seeders to get an idea of the generated data.
 ```
 php artisan migrate --seed
 ```
