@@ -41,7 +41,7 @@ Open .env and enter the values for the following keys:
 * FRONTEND_URL (http://localhost:5173)
 * SESSION_DOMAIN (localhost)
 * SANCTUM_STATEFUL_DOMAINS (usually localhost:5173)
-* DB_DATABASE (If you are naming your database something other than 'laravel')
+* DB_DATABASE (if not 'laravel')
 
 
 
