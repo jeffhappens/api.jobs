@@ -34,7 +34,7 @@ Generate an application key
 ```
 
 
-Open .env and enter the values for:
+Open .env and enter the values for the followinf keys:
 * FRONTEND_URL (http://localhost:5173)
 * SESSION_DOMAIN (localhost)
 * SANCTUM_STATEFUL_DOMAINS (usually localhost:5173)
