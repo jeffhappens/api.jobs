@@ -34,7 +34,8 @@ Generate an application key
 ```
 
 
-Frontend auth is handled by Laravel Sanctum so you will need some additional configuration.
+## Frontend Authentication
+Auth is handled by Laravel Sanctum so you will need some additional configuration.
 
 Open .env and enter the values for the following keys:
 * FRONTEND_URL (http://localhost:5173)
