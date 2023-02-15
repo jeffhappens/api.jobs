@@ -1,9 +1,4 @@
 
-# Job Board Prototype API
-
-Highly opinionated job listing application api written in Laravel.
-
-
 ## Run Locally
 
 Clone the project
@@ -15,7 +10,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd <my-project>
+  cd api.jobs
 ```
 
 Install dependencies
@@ -27,7 +22,17 @@ Install dependencies
 Generate an application key
 
 ```
-  php artisan key:generate
+  php artisan key:generate  
+```
+
+Copy .env.example to .env and enter the values for:
+* FRONTEND_URL
+* SESSION_DOMAIN
+* SANCTUM_STATEFUL_DOMAINS
+
+Run the migration and (optionally) seed the database
+```
+php artisan migrate --seed
 ```
 
 Start the server
@@ -35,9 +40,4 @@ Start the server
 ```bash
   php artisan serve
 ```
-
-
-## Authors
-
-- [@jeffhappens](https://www.github.com/jeffhappens)
 
