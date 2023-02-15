@@ -19,20 +19,25 @@ Install dependencies
   composer install
 ```
 
+Copy .env.example to .env
+```
+  cp .env.example .env
+```
+
 Generate an application key
 
 ```
   php artisan key:generate  
 ```
-Copy .env.example to .env
-```
-  cp .env.example .env
-```
+
+
 Open .env and enter the values for:
 * FRONTEND_URL (http://localhost:5173)
 * SESSION_DOMAIN (localhost)
 * SANCTUM_STATEFUL_DOMAINS (usually localhost:5173)
 * DB_DATABASE (If you are naming your database something other than 'laravel')
+
+
 
 Run the migration and (optionally) seed the database
 ```
