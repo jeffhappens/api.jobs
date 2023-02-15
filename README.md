@@ -29,6 +29,7 @@ Copy .env.example to .env and enter the values for:
 * FRONTEND_URL
 * SESSION_DOMAIN
 * SANCTUM_STATEFUL_DOMAINS
+* DB_DATABASE (If you are naming your database something other than 'laravel')
 
 Run the migration and (optionally) seed the database
 ```
