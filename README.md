@@ -15,7 +15,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd api.jobs
+  cd <my-project>
 ```
 
 Install dependencies
