@@ -33,6 +33,7 @@ Generate an application key
   php artisan key:generate  
 ```
 
+
 Frontend auth is handled by Laravel Sanctum so you will need some additional configuration.
 
 Open .env and enter the values for the following keys:
