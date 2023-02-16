@@ -1,6 +1,6 @@
 
 # Prototype Job Board API
-Highly opinionated Job Search API that uses Laravel/Breeze. You can clone the companion frontend here: [https://github.com/jeffhappens/spa.jobs](https://github.com/jeffhappens/spa.jobs)
+This ia a highly opinionated Job Search API that uses Laravel/Breeze. You can clone the companion frontend here: [https://github.com/jeffhappens/spa.jobs](https://github.com/jeffhappens/spa.jobs)
 
 ## Run Locally
 
