@@ -38,13 +38,13 @@ Route::get('/companies', [CompanyController::class, 'index']);
 
 Route::get('/listings', [ListingController::class, 'index']);
 
+Route::post('/search', [SearchController::class, 'index']);
 
 Route::post('/search', function(Request $request) {
 
-
-
     $latitude = '38.388320';
     $longitude = '-75.162190';
+
     if( $request->get('distance') === 'unlimited' ) {
         
         $listings = Listing::with('company')
@@ -65,9 +65,6 @@ Route::post('/search', function(Request $request) {
         ->get();
 
     }
-
-
-
     return response()->json( $listings );
 
 });

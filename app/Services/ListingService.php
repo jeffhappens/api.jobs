@@ -8,7 +8,7 @@ class ListingService {
 
     public function all()
     {
-        $listings = Listing::with('company')->get();
+        $listings = Listing::with('company')->paginate(5);
         return $listings;
     }
 

@@ -18,9 +18,10 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->company(),
             'user_id' => \App\Models\User::all()->random()->uuid,
             'industry' => $this->industry[ array_rand($this->industry) ],
+            'address' => fake()->address(),
             'logo' => 'placeholder.png'
         ];
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('industry');
             $table->string('logo');
+            $table->string('address');
             $table->timestamps();
         });
     }

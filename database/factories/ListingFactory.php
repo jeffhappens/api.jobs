@@ -17,7 +17,7 @@ class ListingFactory extends Factory
     public function definition()
     {
         return [
-            'title' => fake()->company(),
+            'title' => fake()->jobTitle(),
             'company_id' => \App\Models\Company::all()->random()->id,
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),
