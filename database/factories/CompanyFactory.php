@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CompanyFactory extends Factory
 {
+    public $industry = ['Business/Finance','Agriculture', 'Information Technology','Software Development','Hospitality','Recreation','Automotive'];
     /**
      * Define the model's default state.
      *
@@ -18,6 +19,9 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'user_id' => \App\Models\User::all()->random()->uuid,
+            'industry' => $this->industry[ array_rand($this->industry) ],
+            'logo' => 'placeholder.png'
         ];
     }
 }

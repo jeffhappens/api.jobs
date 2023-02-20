@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Company;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+    
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('/companies/{uuid}', function($uuid) {
+        $companies = Company::withCount('listings')->where('user_id', $uuid)->get();
+        return $companies;
+    });
+
+
 });
 
-Route::get('/listings', function() {
 
-    $listings = Listing::with('company')->get();
+Route::get('/companies', [CompanyController::class, 'index']);
 
-    return response()->json( $listings );
 
-});
+Route::get('/listings', [ListingController::class, 'index']);
+
 
 Route::post('/search', function(Request $request) {
 
