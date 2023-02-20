@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\Auth\NewPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
+    Route::post('/change-password', [NewPasswordController::class, 'fromAccountPanel']);
+
     Route::get('/companies/{uuid}', function($uuid) {
         $companies = Company::withCount('listings')->where('user_id', $uuid)->get();
         return $companies;
@@ -39,6 +42,16 @@ Route::get('/companies', [CompanyController::class, 'index']);
 Route::get('/listings', [ListingController::class, 'index']);
 
 Route::post('/search', [SearchController::class, 'index']);
+
+
+
+
+
+
+
+
+
+
 
 Route::post('/search', function(Request $request) {
 

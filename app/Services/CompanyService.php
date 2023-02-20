@@ -9,7 +9,7 @@ class CompanyService {
     public function all()
     {
 
-        $company = Company::withCount('listings')->get();
+        $company = Company::withCount('listings')->paginate(15);
         return $company;
         
     }
