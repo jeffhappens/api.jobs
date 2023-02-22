@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use Illuminate\Http\Request;
-use App\Services\CompanyService;
-use App\Http\Requests\CompanyRequest;
+use App\Services\IndustryService;
 
-class CompanyController extends Controller
+class IndustryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CompanyService $company)
+    public function index(IndustryService $industryService)
     {
-        return response()->json( $company->all() );
+        return response()->json( $industryService->all() );
     }
 
     /**
@@ -35,11 +33,9 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyRequest $request, CompanyService $companyService)
+    public function store(Request $request)
     {
-        $company = $companyService->add( $request->all() );
-        return response()->json( $company );
-        
+        //
     }
 
     /**
@@ -85,22 +81,5 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logo(Request $request, CompanyService $companyService)
-    {
-        return response()->json($request->file('file'));
-
-        $logo = $companyService->logo( $request->file('file') );
-        return response()->json( $logo );
-        
     }
 }

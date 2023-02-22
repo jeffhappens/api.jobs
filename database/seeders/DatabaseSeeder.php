@@ -25,9 +25,19 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password`
         ]);
 
+        $industries = ['Accommodation', 'Agriculture', 'Business & Finance', 'Construction', 'Health Care', 'Information Technology', 'Leisure and Hospitality', 'Telecommunications'];
+        foreach($industries as $key => $value) {
+            \App\Models\Industry::insert([
+                'label' => $value,
+                'slug' => Str::slug($value),
+                'created_at' => now(),
+                'updated_at' => now()
+
+            ]);
+        }
+
         \App\Models\Company::factory(25)->create();
         \App\Models\Listing::factory(25)->create();
-
 
 
     }

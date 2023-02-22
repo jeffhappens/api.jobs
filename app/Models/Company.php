@@ -13,4 +13,11 @@ class Company extends Model
     {
         return $this->hasMany(Listing::class);
     }
+
+
+
+    public function industry()
+    {
+        return $this->belongsTo(Industry::class);
+    }
 }

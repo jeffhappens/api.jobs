@@ -20,7 +20,7 @@ class CompanyFactory extends Factory
         return [
             'name' => fake()->company(),
             'user_id' => \App\Models\User::all()->random()->uuid,
-            'industry' => $this->industry[ array_rand($this->industry) ],
+            'industry_id' => \App\Models\Industry::all()->random()->id,
             'address' => fake()->address(),
             'logo' => 'placeholder.png'
         ];
