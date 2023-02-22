@@ -43,6 +43,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 
+
+
 Route::get('/companies', [CompanyController::class, 'index']);
 Route::get('/industries', [IndustryController::class, 'index']);
 

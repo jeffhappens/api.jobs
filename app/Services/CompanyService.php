@@ -18,19 +18,15 @@ class CompanyService {
 
     public function add($data)
     {
-        $fields = ['user_id', 'name', 'address', 'industry_id', 'logo'];
-
-        $logo = Str::replace('C:\\fakepath\\', '', $data['logo']);
+        
+        $fields = ['user_id', 'name', 'address', 'industry_id'];
 
         $company = new Company;
 
         foreach($fields as $key => $value) {
-            if($value === 'logo') {
-                $company->{$value} = $logo;
-            } else {
-                $company->{$value} = $data[$value];
-            }
+            $company->{$value} = $data['company'][$value];
         }
+        $company->logo = $data['logo'];
         $company->save();
         return $company;
 

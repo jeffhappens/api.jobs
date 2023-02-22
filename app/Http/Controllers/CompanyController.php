@@ -97,7 +97,32 @@ class CompanyController extends Controller
      */
     public function logo(Request $request, CompanyService $companyService)
     {
-        return response()->json($request->file('file'));
+        $request->validate([
+            'filepond' => 'file|required|mimes:png,jpeg'
+        ]);
+
+        $path = $request->file('filepond')->store('logos');
+        return $path;
+
+        
+
+        
+
+
+        // if($request->file()) {
+        //     $fileName = time().'_'.$request->file->getClientOriginalName();
+        //     $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+        //     $fileModel->name = time().'_'.$request->file->getClientOriginalName();
+        //     $fileModel->file_path = '/storage/' . $filePath;
+        //     $fileModel->save();
+
+        //     return back()
+        //     ->with('success','File has been uploaded.')
+        //     ->with('file', $fileName);
+        // }
+
+        
+        return response()->json($request->hasFile('filepond') );
 
         $logo = $companyService->logo( $request->file('file') );
         return response()->json( $logo );
