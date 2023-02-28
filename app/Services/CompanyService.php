@@ -4,13 +4,17 @@ namespace App\Services;
 
 use App\Models\Company;
 use Illuminate\Support\Str;
+use App\Models\TemporaryFolder;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyService {
 
     public function all()
     {
 
-        $company = Company::withCount('listings')->with('industry')->paginate(15);
+        $company = Company::withCount('listings')
+            ->with('industry')
+            ->paginate(15);
         return $company;
         
     }
@@ -18,15 +22,41 @@ class CompanyService {
 
     public function add($data)
     {
-        
-        $fields = ['user_id', 'name', 'address', 'industry_id'];
+        $fields = ['user_id', 'name', 'address', 'industry_id', 'description'];
 
         $company = new Company;
 
         foreach($fields as $key => $value) {
+
             $company->{$value} = $data['company'][$value];
+
         }
-        $company->logo = $data['logo'];
+
+        if(is_null($data['logo'])) {
+
+            $company->logo = 'logos/placeholder.png';
+
+        } else {
+
+            $fileObj = TemporaryFolder::where('folder', $data['logo'])->first();
+            $folder = $fileObj->folder;
+            $file = $fileObj->file;
+
+            $f = Storage::get('public/tmp/'.$folder.'/'.$file);
+
+            // mv the file to permanent disk
+            Storage::disk('public')
+                ->writeStream(
+                    'logos/'.$folder.'/'.$file,
+                    Storage::disk('public')
+                        ->readStream('tmp/'.$folder.'/'.$file)
+                );
+
+            Storage::disk('public')->deleteDirectory('tmp/'.$folder);
+
+            $company->logo = 'logos/'.$folder.'/'.$file;
+            
+        }
         $company->save();
         return $company;
 

@@ -29,7 +29,7 @@ class CompanyRequest extends FormRequest
             'company.name' => 'required',
             'company.address' => 'required',
             'company.industry_id' => 'required',
-            'logo' => 'required',
+            'logo' => 'sometimes|nullable',
         ];
     }
 }

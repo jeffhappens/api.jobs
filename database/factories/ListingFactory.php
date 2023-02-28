@@ -19,6 +19,7 @@ class ListingFactory extends Factory
         return [
             'title' => fake()->jobTitle(),
             'company_id' => \App\Models\Company::all()->random()->id,
+            'industry_id' => \App\Models\Industry::all()->random()->id,
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),
             'description' => fake()->sentence( fake()->numberBetween(50, 150) ),

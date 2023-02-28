@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('temporary_folders', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_id');
-            $table->string('name');
-            $table->string('industry_id');
-            $table->string('logo');
-            $table->string('address');
-            $table->text('description');
             $table->timestamps();
+            $table->string('folder');
+            $table->string('file');
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('temporary_folders');
     }
 };

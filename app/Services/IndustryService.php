@@ -8,7 +8,7 @@ class IndustryService {
 
     public function all()
     {
-        $industries = Industry::all();
+        $industries = Industry::withCount('listings')->get();
         return $industries;
     }
 }
