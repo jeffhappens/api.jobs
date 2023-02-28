@@ -7,7 +7,7 @@ This ia a highly opinionated Job Search API that uses Laravel/Breeze. You can cl
 Clone the project
 
 ```bash
-  git clone https://github.com/jeffhappens.api.jobs.git
+  git clone https://github.com/jeffhappens/api.jobs.git
 ```
 
 Go to the project directory
