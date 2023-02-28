@@ -45,7 +45,7 @@ Open .env and enter the values for the following keys:
 
 
 
-Run the migration and (optionally) seed the database. See database/factories and database/seeders to get an idea of the generated data.
+Run the migration and (optionally) seed the database. See database/factories and database/seeders to get a sense of the generated data.
 ```
 php artisan migrate --seed
 ```
