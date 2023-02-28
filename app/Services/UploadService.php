@@ -37,11 +37,8 @@ class UploadService {
             'square' => $this->getImageWidth($image) === $this->getImageHeight($image),
         ];
 
-        foreach($options as $key => $value) {
-            if($value) {
-                return $key;
-            }
-        }
+        $option = array_search(true, $options);
+        return $option;
 
     }
 
