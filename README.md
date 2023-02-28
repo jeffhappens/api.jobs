@@ -56,3 +56,5 @@ Start the server
   php artisan serve
 ```
 
+Visit http://localhost:8000 to make sure the api is running.
+
