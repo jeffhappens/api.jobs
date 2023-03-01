@@ -88,7 +88,24 @@ class CompanyController extends Controller
         if(!$l) {
             $company->logo = $c['logo'];
         } else {
-            $company->logo = $l;
+
+            $explodedPath = explode('/', $l);
+            $folder = $explodedPath[1];
+            
+            $tempFile = TemporaryFolder::where('folder', $folder)->first();
+
+            // mv the file to permanent disk
+            Storage::disk('public')
+                ->writeStream(
+                    'logos/'.$tempFile->folder.'/'.$tempFile->file,
+                    Storage::disk('public')
+                        ->readStream('tmp/'.$tempFile->folder.'/'.$tempFile->file)
+                );
+
+            Storage::disk('public')->deleteDirectory('tmp/'.$folder);
+            // return $tempFile;
+            
+            $company->logo = 'logos/'.$tempFile->folder.'/'.$tempFile->file;
         }
         
         

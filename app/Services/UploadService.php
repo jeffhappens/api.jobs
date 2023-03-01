@@ -5,30 +5,34 @@ namespace App\Services;
 use Intervention\Image\Image as Image;
 
 class UploadService {
-
-
+    
+    
+    
+    
     public function __construct()
     {
         //
     }
-
-
-
+    
+    
+    
+    
     public function getImageWidth($image): Int
     {
-        
         return $image->width();
-
     }
-
-
+    
+    
+    
+    
     public function getImageHeight($image): Int
     {
         return $image->height();
-
     }
-
-
+    
+    
+    
+    
     public function getImageOrientation($image) : String
     {
         $options = [
@@ -41,9 +45,10 @@ class UploadService {
         return $option;
 
     }
-
-
-
+    
+    
+    
+    
     public function squareImage($image)
     {
         switch( $orientation = $this->getImageOrientation($image) ) {
@@ -81,11 +86,4 @@ class UploadService {
         return $image;
 
     }
-
-
-
-
-
-
-
 }
