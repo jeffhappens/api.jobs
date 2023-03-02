@@ -11,4 +11,16 @@ class IndustryService {
         $industries = Industry::withCount('listings')->get();
         return $industries;
     }
+
+
+
+    public function listings($slug)
+    {
+
+        $listings = Industry::with('listings')
+            ->where('slug', $slug)
+            ->first();
+        return $listings;
+
+    }
 }

@@ -11,6 +11,6 @@ class Industry extends Model
 
     public function listings()
     {
-        return $this->hasOne(Listing::class);
+        return $this->hasMany(Listing::class);
     }
 }

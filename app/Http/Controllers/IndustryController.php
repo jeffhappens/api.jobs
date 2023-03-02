@@ -82,4 +82,17 @@ class IndustryController extends Controller
     {
         //
     }
+
+
+    /**
+     * Display a listing of the  the specified resource.
+     *
+     * @param  String  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function listings(IndustryService $industryService, $slug)
+    {
+        $listings = $industryService->listings($slug);
+        return response()->json($listings);
+    }
 }
