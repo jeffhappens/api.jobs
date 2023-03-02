@@ -18,6 +18,8 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->uuid('user_id');
             $table->string('name');
+            $table->string('url');
+
             $table->string('slug');
             $table->string('industry_id');
             $table->string('logo');

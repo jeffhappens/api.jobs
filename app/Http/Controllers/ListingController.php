@@ -41,12 +41,13 @@ class ListingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  String  $uuid
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ListingService $listingService, $uuid, $slug)
     {
-        //
+        $listing = $listingService->show($uuid, $slug);
+        return response()->json($listing);
     }
 
     /**

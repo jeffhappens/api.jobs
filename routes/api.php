@@ -75,6 +75,7 @@ Route::get('/industries/{slug}', [IndustryController::class, 'listings']);
 
 
 Route::get('/listings', [ListingController::class, 'index']);
+Route::get('/listing/{uuid}/{slug}', [ListingController::class, 'show']);
 
 Route::post('/search', [SearchController::class, 'index']);
 

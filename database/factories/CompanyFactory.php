@@ -28,6 +28,7 @@ class CompanyFactory extends Factory
             'user_id' => \App\Models\User::all()->random()->uuid,
             'industry_id' => \App\Models\Industry::all()->random()->id,
             'address' => fake()->address(),
+            'url' => fake()->url(),
             'logo' => 'placeholder.png',
             'description' => fake()->sentence(60)
         ];

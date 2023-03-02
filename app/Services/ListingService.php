@@ -12,4 +12,15 @@ class ListingService {
         return $listings;
     }
 
+    public function show($uuid, $slug)
+    {
+        $listing = Listing::where([
+            'uuid' => $uuid,
+            'slug' => $slug
+        ])->first();
+
+        return $listing;
+
+    }
+
 }

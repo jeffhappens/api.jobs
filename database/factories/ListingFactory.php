@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +17,14 @@ class ListingFactory extends Factory
      */
     public function definition()
     {
+        $title = fake()->jobTitle();
+        $slug = Str::slug($title);
         return [
-            'title' => fake()->jobTitle(),
+            'uuid' => Str::uuid(),
+            'title' => $title,
+            'slug' => $slug,
             'company_id' => \App\Models\Company::all()->random()->id,
             'industry_id' => \App\Models\Industry::all()->random()->id,
-            'latitude' => fake()->latitude(),
-            'longitude' => fake()->longitude(),
             'description' => fake()->sentence( fake()->numberBetween(50, 150) ),
             'apply_link' => fake()->url()
         ];

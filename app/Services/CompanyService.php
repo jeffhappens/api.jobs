@@ -22,9 +22,12 @@ class CompanyService {
 
     public function add($data)
     {
-        $fields = ['user_id', 'name', 'address', 'industry_id', 'description'];
+        $fields = ['user_id', 'name', 'address', 'url', 'industry_id', 'description'];
 
         $company = new Company;
+
+        $company->uuid = Str::uuid();
+        $company->slug = Str::slug($data['company']['name']);
 
         foreach($fields as $key => $value) {
 
