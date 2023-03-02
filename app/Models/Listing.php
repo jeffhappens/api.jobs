@@ -10,6 +10,11 @@ class Listing extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'created_at' => 'date:m/d/Y'
+
+    ];
+
     public function company() {
         return $this->belongsTo(Company::class);
     }

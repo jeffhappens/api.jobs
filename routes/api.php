@@ -62,6 +62,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
+Route::get('/company/{uuid}/{slug}', [CompanyController::class, 'single']);
+
+
+
 
 Route::get('/companies', [CompanyController::class, 'index']);
 Route::get('/industries', [IndustryController::class, 'index']);
@@ -86,29 +90,10 @@ Route::post('/search', [SearchController::class, 'index']);
 
 Route::post('/search', function(Request $request) {
 
-    $latitude = '38.388320';
-    $longitude = '-75.162190';
-
-    if( $request->get('distance') === 'unlimited' ) {
-        
-        $listings = Listing::with('company')
+    $listings = Listing::with('company')
         ->where('title','like','%'.$request->get('keyword').'%')
-        ->get();
+        ->paginate(25);
 
-    } else {
-
-        $radius = $request->get('distance');
-
-        $selectWithinRadius = 'id, company_id, title, description, apply_link, ( 3956 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance';
-
-        $listings = Listing::with('company')
-        ->selectRaw( $selectWithinRadius, [ $latitude, $longitude, $latitude ] )
-        ->having("distance", "<", $radius)
-        ->where('title','like','%'.$request->get('keyword').'%')
-        ->orderBy("distance",'asc')
-        ->get();
-
-    }
     return response()->json( $listings );
 
 });

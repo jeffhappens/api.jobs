@@ -166,4 +166,15 @@ class CompanyController extends Controller
 
         return $explodedPath[2];
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function single(CompanyService $companyService, $uuid, $slug)
+    {
+        return response()->json( $companyService->single($uuid, $slug) );
+    }
 }

@@ -17,7 +17,30 @@ class IndustryFactory extends Factory
      */
     public function definition()
     {
-        $industries = ['Accommodation', 'Agriculture', 'Business & Finance', 'Construction', 'Health Care', 'Information Technology', 'Leisure and Hospitality', 'Telecommunications'];
+        $industries = [
+            'Accommodation',
+            'Accounting',
+            'Agriculture',
+            'Business & Finance',
+            'Construction',
+            'Distribution', 
+            'Electronics',
+            'Health Care',
+            'Human Resources',
+            'Information Technology',
+            'Insurance',
+            'Law',
+            'Leisure and Hospitality',
+            'Real Estate',
+            'Robotics',
+            'Technology',
+            'Sales',
+            'Software',
+            'Telecommunications',
+            'Trade',
+
+
+        ];
         $industry = array_rand($industries);
         $slug = Str::slug($industry);
         return [

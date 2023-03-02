@@ -69,4 +69,19 @@ class CompanyService {
 
     }
 
+
+
+    public function single($uuid, $slug)
+    {
+        $company = Company::with('listings')
+        ->with('industry')
+        ->where([
+            'uuid' => $uuid,
+            'slug' => $slug
+        ])
+        ->first();
+    return $company;
+
+    }
+
 }

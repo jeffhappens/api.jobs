@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +18,13 @@ class CompanyFactory extends Factory
      */
     public function definition()
     {
+        $name = fake()->company();
+        $uuid = Str::uuid();
+        
         return [
-            'name' => fake()->company(),
+            'uuid' => $uuid,
+            'name' => $name,
+            'slug' => Str::slug($name),
             'user_id' => \App\Models\User::all()->random()->uuid,
             'industry_id' => \App\Models\Industry::all()->random()->id,
             'address' => fake()->address(),
