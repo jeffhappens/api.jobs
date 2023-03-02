@@ -34,7 +34,7 @@ class CompanyService {
 
         if(is_null($data['logo'])) {
 
-            $company->logo = 'logos/placeholder.png';
+            $company->logo = 'placeholder.png';
 
         } else {
 
