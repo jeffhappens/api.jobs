@@ -1,6 +1,6 @@
 
 # Prototype Job Board API
-This ia an opinionated Job Search API that uses Laravel 9/Breeze. Make sure your environment meets the requirements before running.
+This ia an opinionated Job Search API that uses Laravel 9/Breeze. Make sure your environment meets the requirements of Laravel 9 before running.
 
 You can clone the companion frontend here: [https://github.com/jeffhappens/spa.jobs](https://github.com/jeffhappens/spa.jobs)
 
