@@ -4,6 +4,7 @@ use App\Models\Company;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFolder;
+use App\Models\TemporaryListing;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
@@ -54,6 +55,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
         $file = TemporaryFolder::where('folder', $folderId)->first();
 
         return $file;
+
+    });
+
+
+    Route::post('/addtemplisting', function(Request $request) {
+
+        $tempListing = new TemporaryListing;
+
+        // $tempListing->company_id = 1;
+        $tempListing->title = $request->get('title');
+        $tempListing->category_id = 1;
+        $tempListing->required_skills = json_encode($request->get('skills'));
+        $tempListing->apply_link = $request->get('apply_link');
+        $tempListing->job_type_id = 1;
+        $tempListing->description = $request->get('description');
+        $tempListing->save();
+
+        return $tempListing;
 
     });
 
