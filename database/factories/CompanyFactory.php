@@ -28,7 +28,10 @@ class CompanyFactory extends Factory
             'email' => fake()->email(),
             'user_id' => \App\Models\User::all()->random()->uuid,
             'industry_id' => \App\Models\Industry::all()->random()->id,
-            'address' => fake()->address(),
+            'address' => fake()->streetAddress(),
+            'city' => fake()->city(),
+            'state' => fake()->stateAbbr(),
+            'zip' => fake()->postcode(),
             'url' => fake()->url(),
             'logo' => 'placeholder.png',
             'description' => fake()->sentence(60)

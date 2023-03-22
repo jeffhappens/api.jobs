@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('industry_id');
             $table->string('logo');
             $table->string('address');
+            $table->string('city');
+            $table->string('state');
+            $table->string('zip');
             $table->text('description');
             $table->timestamps();
         });
