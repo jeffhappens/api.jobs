@@ -157,13 +157,13 @@ Route::post('/search', function(Request $request) {
 
 Route::post('/webhook/stripe', function(Request $request) {
 
-    \Stripe\Stripe::setApiKey('sk_test_FMOOV9UsEGqeeaXKrzteVlCA00x6B9HCU0');
+    \Stripe\Stripe::setApiKey( config('services.stripe.test_secret') );
     // Replace this endpoint secret with your endpoint's unique secret
     // If you are testing with the CLI, find the secret by running 'stripe listen'
     // If you are using an endpoint defined with the API or dashboard, look in your webhook settings
     // at https://dashboard.stripe.com/webhooks
 
-    $endpoint_secret = 'whsec_2bb82db99b4fdb182676697c294664c56ad230ab08722a7e52e831add78ee202';
+    $endpoint_secret = config('services.stripe.webhook_secret');
 
     $payload = @file_get_contents('php://input');
     $event = null;
