@@ -17,7 +17,7 @@ class IndustryService {
     public function listings($slug)
     {
 
-        $listings = Industry::with('listings.company')
+        $listings = Industry::with('listings.company.industry')
             ->where('slug', $slug)
             ->first();
         return $listings;

@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('temporary_listings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('user_uuid');
             $table->string('title');
-            $table->unsignedInteger('category_id');
-            $table->json('required_skills');
+            $table->unsignedInteger('industry_id');
+            $table->unsignedInteger('company_id')->nullable();
             $table->string('apply_link');
             $table->unsignedInteger('job_type_id');
             $table->text('description');

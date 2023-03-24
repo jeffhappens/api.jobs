@@ -8,13 +8,19 @@ class ListingService {
 
     public function all()
     {
-        $listings = Listing::with('company')->paginate(25);
+        $listings = Listing::with('company')
+            ->with('industry')
+            ->where( 'expires_at','>', now() )
+            ->latest()
+            ->paginate(10);
         return $listings;
     }
 
     public function show($uuid, $slug)
     {
-        $listing = Listing::where([
+        $listing = Listing::with('company')
+            ->with('industry')
+            ->where([
             'uuid' => $uuid,
             'slug' => $slug
         ])->first();

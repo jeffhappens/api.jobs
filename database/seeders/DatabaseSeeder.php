@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
         }
 
         \App\Models\Company::factory(25)->create();
-        \App\Models\Listing::factory(100)->create();
+        \App\Models\Listing::factory(50)->create();
 
 
     }

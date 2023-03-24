@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
+            $table->string('author_uuid');
             $table->unsignedInteger('company_id');
             $table->unsignedInteger('industry_id');
             $table->string('title');
             $table->string('slug');
             $table->text('description');
             $table->string('apply_link');
+            $table->datetime('expires_at')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Company;
+use App\Models\Industry;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,4 +19,10 @@ class Listing extends Model
     public function company() {
         return $this->belongsTo(Company::class);
     }
+
+    public function industry() {
+        return $this->belongsTo(Industry::class);
+
+    }
+
 }
