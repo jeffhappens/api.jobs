@@ -84,6 +84,12 @@ class CompanyController extends Controller
 
         $company->name = $c['name'];
         $company->address = $c['address'];
+        $company->city = $c['city'];
+        $company->state = $c['state'];
+        $company->zip = $c['zip'];
+        $company->email = $c['email'];
+        $company->url = $c['url'];
+
 
         if(!$l) {
             $company->logo = $c['logo'];
@@ -110,6 +116,7 @@ class CompanyController extends Controller
         
         
         $company->industry_id = $c['industry_id'];
+        $company->description = $c['description'];
         $company->user_id = $c['user_id'];
         $company->save();
 

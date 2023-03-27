@@ -22,7 +22,7 @@ class CompanyService {
 
     public function add($data)
     {
-        $fields = ['user_id', 'name', 'address', 'url', 'industry_id', 'description'];
+        $fields = ['user_id', 'name', 'address', 'city', 'state', 'zip', 'email', 'url', 'industry_id', 'description'];
 
         $company = new Company;
 

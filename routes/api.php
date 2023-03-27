@@ -60,6 +60,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     });
 
+    Route::get('/mylistings', function(Request $request) {
+        $listings = Listing::with('industry')
+            ->with('company')
+            ->where('author_uuid', $request->user()->uuid)
+            ->get();
+        return $listings;
+    });
+
     Route::post('/listing/add', function(Request $request) {
 
         $listing = new Listing;
@@ -70,8 +78,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         $listing->company_id = $request->get('company')['id'];
         $listing->industry_id = $request->get('industry')['id'];
         $listing->description = $request->get('description');
+
+
+        // $isEmail = filter_var($request->get('apply_link'), FILTER_VALIDATE_EMAIL);
+        // $isUrl = filter_var($request->get('apply_link'), FILTER_VALIDATE_URL);
+
+        // return response()->json([
+        //     'email' => $isEmail,
+        //     'url' => $isUrl
+        // ]);
         $listing->apply_link = $request->get('apply_link');
-        // $listing->expires_at = Carbon::now()->addMonth();
         $listing->save();
 
         return $listing;
