@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('uuid');
             $table->string('author_uuid');
             $table->unsignedInteger('company_id');
-            $table->unsignedInteger('industry_id');
+            $table->unsignedInteger('industry_id')->nullable();
             $table->string('title');
             $table->string('slug');
             $table->text('description');

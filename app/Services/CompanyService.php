@@ -11,42 +11,32 @@ class CompanyService {
 
     public function all()
     {
-
         $company = Company::withCount('listings')
             ->with('industry')
             ->paginate(15);
+
         return $company;
-        
     }
-
-
+    
+    
+    
+    
+    
     public function add($data)
     {
-        $fields = ['user_id', 'name', 'address', 'city', 'state', 'zip', 'email', 'url', 'industry_id', 'description'];
+        $d = $data['company'];
+        $logo = null;
 
-        $company = new Company;
-
-        $company->uuid = Str::uuid();
-        $company->slug = Str::slug($data['company']['name']);
-
-        foreach($fields as $key => $value) {
-
-            $company->{$value} = $data['company'][$value];
-
-        }
-
-        if(is_null($data['logo'])) {
-
-            $company->logo = 'placeholder.png';
-
+        if( is_null( $data['logo'] ) ) {
+            $logo = 'placeholder.png';
         } else {
-
-            $fileObj = TemporaryFolder::where('folder', $data['logo'])->first();
+            $fileObj = TemporaryFolder::where( 'folder', $data['logo'] )->first();
+            
             $folder = $fileObj->folder;
             $file = $fileObj->file;
 
             $f = Storage::get('public/tmp/'.$folder.'/'.$file);
-
+            
             // mv the file to permanent disk
             Storage::disk('public')
                 ->writeStream(
@@ -56,24 +46,47 @@ class CompanyService {
                 );
 
             Storage::disk('public')->deleteDirectory('tmp/'.$folder);
-
-            $company->logo = 'logos/'.$folder.'/'.$file;
-            
+            $logo = 'logos/'.$folder.'/'.$file;
         }
-        $company->save();
+
+        
+
+        $company = Company::updateOrCreate(
+            [
+                'name' => $d['name'],
+                'author' => $d['author']
+            ],
+            [
+                'uuid' => Str::uuid(),
+                'email' => $d['email'],
+                'slug' => Str::slug($d['name']),
+                'url' => $d['url'],
+                'industry_id' => $d['industry_id'],
+                'logo' => $logo,
+                'address' => $d['address'],
+                'city' => $d['city'],
+                'state' => $d['state'],
+                'zip' => $d['zip'],
+                'description' => $d['description']
+            ]
+        );
         return $company;
-
     }
-
-
+    
+    
+    
+    
+    
     public function logo($file) {
 
         return $file;
 
     }
-
-
-
+    
+    
+    
+    
+    
     public function single($uuid, $slug)
     {
         $company = Company::with('listings')
@@ -83,7 +96,8 @@ class CompanyService {
             'slug' => $slug
         ])
         ->first();
-    return $company;
+
+        return $company;
 
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use App\Services\ListingService;
 
@@ -58,7 +59,8 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Listing::with('company')->where('uuid', $id)->first();
+        
     }
 
     /**
@@ -68,9 +70,14 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ListingService $listingService, Request $request)
     {
-        //
+
+        $listing = $listingService->add( $request->all() );
+
+        return $listing;
+
+        
     }
 
     /**

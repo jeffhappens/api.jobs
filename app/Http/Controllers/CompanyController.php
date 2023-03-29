@@ -117,7 +117,7 @@ class CompanyController extends Controller
         
         $company->industry_id = $c['industry_id'];
         $company->description = $c['description'];
-        $company->user_id = $c['user_id'];
+        $company->author = $c['author'];
         $company->save();
 
         return $company;

@@ -1,11 +1,15 @@
 <?php
 
+use App\Models\State;
 use App\Models\Company;
 use App\Models\Listing;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\TemporaryFolder;
 use App\Models\TemporaryListing;
+use App\Services\CompanyService;
+use App\Services\ListingService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -38,10 +42,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     });
 
+    Route::get('/states', function() {
+        return response()->json(State::get());
+    });
+
+    Route::get('/industries', function() {
+        return response()->json(Industry::get());
+    });
+
     Route::get('/companies/{uuid}', function($uuid) {
         $companies = Company::withCount('listings')
             ->with('industry')
-            ->where('user_id', $uuid)
+            ->where('author', $uuid)
             ->latest()
             ->get();
         return $companies;
@@ -67,37 +79,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
             ->get();
         return $listings;
     });
-
-    Route::post('/listing/add', function(Request $request) {
-
-        $listing = new Listing;
-        $listing->uuid = Str::uuid();
-        $listing->author_uuid = $request->user()->uuid;
-        $listing->title = $request->get('title');
-        $listing->slug = Str::slug($request->get('title'));
-        $listing->company_id = $request->get('company')['id'];
-        $listing->industry_id = $request->get('industry')['id'];
-        $listing->description = $request->get('description');
-
-
-        // $isEmail = filter_var($request->get('apply_link'), FILTER_VALIDATE_EMAIL);
-        // $isUrl = filter_var($request->get('apply_link'), FILTER_VALIDATE_URL);
-
-        // return response()->json([
-        //     'email' => $isEmail,
-        //     'url' => $isUrl
-        // ]);
-        $listing->apply_link = $request->get('apply_link');
-        $listing->save();
+    
+    
+    
+    
+    
+    Route::post('/listing/add', function(Request $request, ListingService $listingService)
+    {
+        $listing_fields = ['uuid', 'title','type', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
+        $listing = $listingService->add( $request->only($listing_fields) );
 
         return $listing;
-
     });
-
-
+    
+    
+    
+    
+    
     Route::post('/addtemplisting', function(Request $request) {
-
-        // return response()->json( $request->all() );
 
         $tempListing = TemporaryListing::updateOrCreate(
             [ 'user_uuid' => $request->get('user_uuid') ],
@@ -153,6 +152,8 @@ Route::get('/industries/{slug}', [IndustryController::class, 'listings']);
 
 
 Route::get('/listings', [ListingController::class, 'index']);
+Route::get('/listing/edit/{uuid}', [ListingController::class, 'edit']);
+
 Route::get('/listing/{uuid}/{slug}', [ListingController::class, 'show']);
 
 // Route::post('/search', [SearchController::class, 'index']);
