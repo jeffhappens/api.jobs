@@ -24,7 +24,10 @@ class Listing extends Model
 
     public function industry() {
         return $this->belongsTo(Industry::class);
+    }
 
+    public function type() {
+        return $this->belongsTo(JobType::class);
     }
 
 }

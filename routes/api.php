@@ -86,7 +86,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
     Route::post('/listing/add', function(Request $request, ListingService $listingService)
     {
-        $listing_fields = ['uuid', 'title','type', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
+        $listing_fields = ['uuid', 'title','type_id', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
         $listing = $listingService->add( $request->only($listing_fields) );
 
         return $listing;

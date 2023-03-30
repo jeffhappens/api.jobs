@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\JobType;
 use App\Models\Listing;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ListingService {
 
@@ -25,6 +27,7 @@ class ListingService {
     {
         $listing = Listing::with('company')
             ->with('industry')
+            ->with('type')
             ->where([
                 'uuid' => $uuid,
                 'slug' => $slug
@@ -48,6 +51,7 @@ class ListingService {
             ],
             [
                 'uuid' => Str::uuid(),
+                'type_id' => $data['type_id'],
                 'author_uuid' => $data['author_uuid'],
                 'title' => $data['title'],
                 'slug' => Str::slug($data['title']),

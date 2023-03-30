@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\State;
+use App\Models\JobType;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -95,6 +96,20 @@ class DatabaseSeeder extends Seeder
                 'full_name' => $value,
                 'abbr' => $key,
             ]);
+        }
+
+
+        $types = [
+            '1' => 'Full Time',
+            '2' => 'Part Time',
+            '3' => 'Contract'
+        ];
+        foreach($types as $key => $value) {
+            JobType::insert([
+                'type_id' => $key,
+                'label' => $value
+            ]);
+
         }
 
         $industries = [
