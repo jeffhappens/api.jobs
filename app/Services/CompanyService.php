@@ -13,6 +13,7 @@ class CompanyService {
     {
         $company = Company::withCount('listings')
             ->with('industry')
+            ->orderBy('name','asc')
             ->paginate(15);
 
         return $company;

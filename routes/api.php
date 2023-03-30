@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         $listings = Listing::with('industry')
             ->with('company')
             ->where('author_uuid', $request->user()->uuid)
+            ->latest()
             ->get();
         return $listings;
     });
