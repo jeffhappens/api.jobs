@@ -11,6 +11,7 @@ use App\Models\TemporaryListing;
 use App\Services\CompanyService;
 use App\Services\ListingService;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ListingRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
@@ -133,6 +134,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             ->first();
         return $tempListing;
 
+    });
+
+    Route::post('/listing/validate', function(ListingRequest $request) {
+        return;
     });
 
 
