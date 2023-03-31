@@ -26,7 +26,7 @@ class CompanyFactory extends Factory
             'name' => $name,
             'slug' => Str::slug($name),
             'email' => fake()->email(),
-            'user_id' => \App\Models\User::all()->random()->uuid,
+            'author' => \App\Models\User::all()->random()->uuid,
             'industry_id' => \App\Models\Industry::all()->random()->id,
             'address' => fake()->streetAddress(),
             'city' => fake()->city(),

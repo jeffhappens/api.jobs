@@ -26,6 +26,7 @@ class ListingFactory extends Factory
             'author_uuid' => \App\Models\User::all()->random()->uuid,
             'title' => $title,
             'slug' => $slug,
+            'type_id' => 1,
             'company_id' => \App\Models\Company::all()->random()->id,
             'industry_id' => \App\Models\Industry::all()->random()->id,
             'description' => fake()->sentence( fake()->numberBetween(50, 150) ),
