@@ -95,8 +95,8 @@ class CompanyController extends Controller
             $company->logo = $c['logo'];
         } else {
 
-            $explodedPath = explode('/', $l);
-            $folder = $explodedPath[1];
+            // $explodedPath = explode('/', $l);
+            $folder = $l;
             
             $tempFile = TemporaryFolder::where('folder', $folder)->first();
 
@@ -171,7 +171,7 @@ class CompanyController extends Controller
         $temporaryFolder->save();
 
 
-        return $explodedPath[2];
+        return response()->json(['folder' => $explodedPath[2], 'filename' => $explodedPath[3] ]);
     }
 
 

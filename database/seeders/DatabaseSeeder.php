@@ -17,15 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'uuid' => Str::uuid(),
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password`
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'uuid' => Str::uuid(),
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        //     'email_verified_at' => now(),
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password`
+        // ]);
 
         $states = [
             'AL'=>'ALABAMA',
@@ -118,7 +118,7 @@ class DatabaseSeeder extends Seeder
             'Cleaning & Grouds Maintenance',
             'Community & Human Services',
             'Construction & Extraction',
-            'Education & Intruction',
+            'Education & Instruction',
             'Farming, Fishing & Forestry', 
             'Finance & Accounting',
             'Food & Beverage',
@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
             'Repair, Maintenance & Installation',
             'Sales, Retail & Customer Support',
             'Science & Research',
-            'Supply CHain & Logistics',
+            'Supply Chain & Logistics',
             'Technology',
             'Transportation',
             'Travel, Attractions & Events',
@@ -148,8 +148,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        \App\Models\Company::factory(25)->create();
-        \App\Models\Listing::factory(50)->create();
+        // \App\Models\Company::factory(25)->create();
+        // \App\Models\Listing::factory(50)->create();
 
 
     }

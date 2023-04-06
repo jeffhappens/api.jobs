@@ -14,7 +14,8 @@ class Listing extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'created_at' => 'date:m/d/Y'
+        'created_at' => 'date:m/d/Y',
+        'expires_at' => 'date:m/d/Y'
 
     ];
 

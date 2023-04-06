@@ -27,7 +27,7 @@ class ListingRequest extends FormRequest
             'title' => 'required',
             'company_id' => 'required',
             // Rule below can be either a URL or an email address
-            'apply_link' => ['required', 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'apply_link' => 'required|url',
             'description' => 'required'
         ];
     }
