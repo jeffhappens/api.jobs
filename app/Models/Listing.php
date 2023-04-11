@@ -24,7 +24,7 @@ class Listing extends Model
 
     public function getExpiredAttribute()
     {
-        return $this->expires_at < now(); //or however you want to manipulate it
+        return $this->expires_at < now();
     }
 
     public function company() {

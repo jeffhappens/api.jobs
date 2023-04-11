@@ -80,6 +80,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             ->where('author_uuid', $request->user()->uuid)
             ->latest()
             ->get();
+            
         return $listings;
     });
     
