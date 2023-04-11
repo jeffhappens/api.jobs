@@ -28,7 +28,7 @@ class CompanyService {
         $d = $data['company'];
         $logo = null;
 
-        if( is_null( $data['logo'] ) ) {
+        if( !isset($data['logo']) || is_null( $data['logo'] ) ) {
             $logo = 'placeholder.png';
         } else {
             $fileObj = TemporaryFolder::where( 'folder', $data['logo'] )->first();

@@ -13,11 +13,19 @@ class Listing extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['expired'];
+
     protected $casts = [
         'created_at' => 'date:m/d/Y',
-        'expires_at' => 'date:m/d/Y'
+        'expires_at' => 'date:m/d/Y',
+        'renewed_on' => 'date:m/d/Y',
 
     ];
+
+    public function getExpiredAttribute()
+    {
+        return $this->expires_at < now(); //or however you want to manipulate it
+    }
 
     public function company() {
         return $this->belongsTo(Company::class);

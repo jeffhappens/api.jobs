@@ -14,6 +14,8 @@ class ListingService {
         $listings = Listing::with('company')
             ->with('industry')
             ->where( 'expires_at','>', now() )
+            ->orderBy('renewed_on', 'desc')
+            ->orderBy('created_at', 'desc')
             ->latest()
             ->paginate(10);
         

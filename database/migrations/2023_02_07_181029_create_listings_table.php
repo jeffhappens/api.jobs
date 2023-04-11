@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('apply_link');
             $table->unsignedInteger('type_id');
             $table->datetime('expires_at')->nullable();
+            $table->datetime('renewed_on')->nullable();
             $table->timestamps();
         });
     }

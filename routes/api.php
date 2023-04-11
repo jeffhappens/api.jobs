@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\Industry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use App\Models\TemporaryFolder;
 use App\Models\TemporaryListing;
 use App\Services\CompanyService;
@@ -225,27 +226,25 @@ Route::post('/webhook/stripe', function(Request $request) {
             $checkoutSession = $event->data->object; // contains a \Stripe\PaymentIntent
             // Then define and call a method to handle the successful payment intent.
             // handlePaymentIntentSucceeded($paymentIntent);
-            $author_uuid = $checkoutSession->client_reference_id;
 
-            $listing = Listing::where('author_uuid', $author_uuid)->latest()->first();
-            $listing->expires_at = Carbon::now()->addMonth();
-            $listing->save();
+            $uuid = $checkoutSession->client_reference_id;
+            $field = 'author_uuid';
 
+            // $uuid is prefixed if the action is renew
+            if(Str::contains($uuid, 'renewal_')) {
+                $field = 'uuid';
+                $uuid = Str::remove('renewal_', $uuid);
+            }
+
+            $listing = Listing::where($field, $uuid)->latest()->first();
+                $listing->expires_at = Carbon::now()->addMonth();
+                if($field === 'uuid') {
+                    $listing->renewed_on = Carbon::now();
+                }
+                $listing->save();
 
             Log::info($listing);
             break;
-        // case 'payment_intent.succeeded':
-        //     $paymentIntent = $event->data->object; // contains a \Stripe\PaymentIntent
-        //     // Then define and call a method to handle the successful payment intent.
-        //     // handlePaymentIntentSucceeded($paymentIntent);
-        //     Log::info($paymentIntent);
-        //     break;
-        // case 'payment_method.attached':
-        //     $paymentMethod = $event->data->object; // contains a \Stripe\PaymentMethod
-        //     // Then define and call a method to handle the successful attachment of a PaymentMethod.
-        //     // handlePaymentMethodAttached($paymentMethod);
-        //     Log::info($paymentMethod);
-        //     break;
         default:
         // Unexpected event type
         Log::info('Received unknown event type');
