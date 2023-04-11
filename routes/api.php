@@ -80,7 +80,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             ->where('author_uuid', $request->user()->uuid)
             ->latest()
             ->get();
-            
+
         return $listings;
     });
     
@@ -239,9 +239,11 @@ Route::post('/webhook/stripe', function(Request $request) {
 
             $listing = Listing::where($field, $uuid)->latest()->first();
                 $listing->expires_at = Carbon::now()->addMonth();
+                
                 if($field === 'uuid') {
                     $listing->renewed_on = Carbon::now();
                 }
+                
                 $listing->save();
 
             Log::info($listing);
