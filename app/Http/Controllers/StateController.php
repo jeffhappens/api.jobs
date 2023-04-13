@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Listing;
+use App\Models\State;
 use Illuminate\Http\Request;
-use App\Services\ListingService;
 
-class ListingController extends Controller
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ListingService $listings)
+    public function index()
     {
-        return response()->json( $listings->all() );
+        return response()->json(State::get());
     }
 
     /**
@@ -23,14 +22,9 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, ListingService $listingService)
+    public function create()
     {
-        
-        $listing_fields = ['uuid', 'title','type_id', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
-        $listing = $listingService->add( $request->only($listing_fields) );
-
-        return $listing;
-
+        //
     }
 
     /**
@@ -47,13 +41,12 @@ class ListingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  String  $uuid
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ListingService $listingService, $uuid, $slug)
+    public function show($id)
     {
-        $listing = $listingService->show($uuid, $slug);
-        return response()->json($listing);
+        //
     }
 
     /**
@@ -64,8 +57,7 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
-        return Listing::with('company')->where('uuid', $id)->first();
-        
+        //
     }
 
     /**
@@ -75,14 +67,9 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ListingService $listingService, Request $request)
+    public function update(Request $request, $id)
     {
-
-        $listing = $listingService->add( $request->all() );
-
-        return $listing;
-
-        
+        //
     }
 
     /**

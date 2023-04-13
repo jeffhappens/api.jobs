@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Listing;
 use Illuminate\Http\Request;
-use App\Services\ListingService;
 
-class ListingController extends Controller
+class TemporaryListingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ListingService $listings)
+    public function index()
     {
-        return response()->json( $listings->all() );
+        //
     }
 
     /**
@@ -23,14 +21,9 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, ListingService $listingService)
+    public function create()
     {
-        
-        $listing_fields = ['uuid', 'title','type_id', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
-        $listing = $listingService->add( $request->only($listing_fields) );
-
-        return $listing;
-
+        //
     }
 
     /**
@@ -41,19 +34,37 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tempListing = TemporaryListing::updateOrCreate(
+            
+            [ 'user_uuid' => $request->get('user_uuid') ],
+
+            [
+                'title' => $request->get('title'),
+                'industry_id' => $request->get('industry')['id'],
+                'company_id' => $request->get('company')['id'],
+                'apply_link' => $request->get('apply_link'),
+                'job_type_id' => 1,
+                'description' => $request->get('description')
+            ]
+        );
+        return $tempListing;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  String  $uuid
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ListingService $listingService, $uuid, $slug)
+    public function show($id)
     {
-        $listing = $listingService->show($uuid, $slug);
-        return response()->json($listing);
+        $tempListing = TemporaryListing::with('industry')
+            ->with('company')
+            ->where('user_uuid', $uuid)
+            ->latest()
+            ->first();
+            
+        return $tempListing;
     }
 
     /**
@@ -64,8 +75,7 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
-        return Listing::with('company')->where('uuid', $id)->first();
-        
+        //
     }
 
     /**
@@ -75,14 +85,15 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ListingService $listingService, Request $request)
+    public function update(Request $request, $id)
     {
+        $tempListing = TemporaryListing::where('user_uuid', $request->get('uuid'))
+            ->first();
 
-        $listing = $listingService->add( $request->all() );
+        $tempListing->company_id = $request->get('company_id');
+        $tempListing->save();
 
-        return $listing;
-
-        
+        return $tempListing;
     }
 
     /**

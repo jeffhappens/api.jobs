@@ -54,7 +54,14 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        $companies = Company::withCount('listings')
+            ->with('industry')
+            ->where('author', $id)
+            ->latest()
+            ->get();
+
+        return $companies;
+
     }
 
     /**
@@ -65,7 +72,7 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Company::where('id', $id)->first();
     }
 
     /**

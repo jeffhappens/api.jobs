@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -11,9 +12,15 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        
+        $listings = Listing::with('company')
+            ->where('title','like','%'.$request->get('keyword').'%')
+            ->paginate(25);
+
+        return response()->json( $listings );
+
     }
 
     /**
