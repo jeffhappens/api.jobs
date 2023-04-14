@@ -106,11 +106,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/updatetemplisting', [ TemporaryListingController::class, 'store' ]);
     Route::get('/templisting/{uuid}', [ TemporaryListingController::class, 'show' ]);
 
-    Route::post('/listing/validate', function(ListingRequest $request)
-    {
-        
+    Route::post('/listing/validate', function(ListingRequest $request) {
         return;
-
     });
 
 });
