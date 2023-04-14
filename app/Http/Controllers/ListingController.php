@@ -95,4 +95,18 @@ class ListingController extends Controller
     {
         //
     }
+
+
+    /**
+     * Display a list of a specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function mylistings(ListingService $listingService, Request $request)
+    {
+        $listings = $listingService->mylistings($request->user()->uuid);
+        return response()->json($listings);
+    }
+
 }

@@ -66,4 +66,18 @@ class ListingService {
         return $listing;
 
     }
+
+
+    public function mylistings($uuid)
+    {
+        $listings = Listing::with('industry')
+            ->with('company')
+            ->where('author_uuid', $uuid)
+            ->latest()
+            ->get();
+
+        return $listings;
+    }
+
+    
 }
