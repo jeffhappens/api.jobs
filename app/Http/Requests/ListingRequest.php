@@ -36,9 +36,14 @@ class ListingRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->apply_link['type'] === 'email') {
-            $this->ruleValue = 'email';
-        }
+        return [
+            'data' => $this
+        ];
+
+        // if($this->apply_link['type'] === 'email') {
+        //     $this->ruleValue = 'email';
+        //     return [$this->apply_link];
+        // }
         return [
             'title' => 'required',
             'company_id' => 'required',

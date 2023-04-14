@@ -106,9 +106,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/updatetemplisting', [ TemporaryListingController::class, 'store' ]);
     Route::get('/templisting/{uuid}', [ TemporaryListingController::class, 'show' ]);
 
-    Route::post('/listing/validate', function(ListingRequest $request) {
-        return;
+    Route::post('/listing/validate', function(Request $request) {
+
+        $ruleValue = $request->get('apply_link')['type'];
+
+        $validator = $request->validate(
+            [
+                'title' => 'required',
+                'company_id' => 'required',
+                'apply_link.value' => 'required|'.$ruleValue,
+                'description' => 'required'
+            ],
+            [
+                'apply_link.value.url' => 'The Apply Link must be a valid URL',
+                'apply_link.value.email' => 'The Apply Link must be a Email Address',
+            ]
+        );
+        
     });
+
+    // Route::post('/listing/validate', function(ListingRequest $request) {
+    //     return;
+    // });
 
 });
 
