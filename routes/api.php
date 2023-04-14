@@ -120,6 +120,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 'description' => 'required'
             ],
             [
+                'apply_link.value.required' => 'The Apply Link field is required',
                 'apply_link.value.url' => 'The Apply Link must be a valid URL',
                 'apply_link.value.email' => 'The Apply Link must be a valid Email Address',
             ]
