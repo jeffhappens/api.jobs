@@ -109,6 +109,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/listing/validate', function(Request $request) {
 
         $ruleValue = $request->get('apply_link')['type'];
+        // return $ruleValue;
+
 
         $validator = $request->validate(
             [
@@ -119,7 +121,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             ],
             [
                 'apply_link.value.url' => 'The Apply Link must be a valid URL',
-                'apply_link.value.email' => 'The Apply Link must be a Email Address',
+                'apply_link.value.email' => 'The Apply Link must be a valid Email Address',
             ]
         );
         
