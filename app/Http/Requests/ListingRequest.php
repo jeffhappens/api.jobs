@@ -25,8 +25,9 @@ class ListingRequest extends FormRequest
             'apply_link.value.url' => 'Apply Link must be a valid URL',
             'apply_link.value.email' => 'Apply Link must be a valid Email Address',
         ];
-
     }
+
+    
 
     /**
      * Get the validation rules that apply to the request.
