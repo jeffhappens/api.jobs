@@ -143,7 +143,7 @@ Route::prefix('listings')->group(function() {
 });
 
 Route::get('/companies', [ CompanyController::class, 'index' ]);
-Route::get('/companies/{uuid}/{slug}', [ CompanyController::class, 'single' ]);
+Route::get('/company/{uuid}/{slug}', [ CompanyController::class, 'single' ]);
 
 Route::prefix('industries')->group(function() {
     Route::get('/', [ IndustryController::class, 'index' ]);
