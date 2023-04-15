@@ -77,7 +77,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::post('/add', [ ListingController::class, 'create' ]);
         Route::get('/edit/{uuid}', [ ListingController::class, 'edit' ]);
-        Route::get('/{uuid}/{slug}', [ ListingController::class, 'show' ]);
+
 
     });
 
@@ -141,6 +141,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix('listings')->group(function() {
     Route::get('/', [ ListingController::class, 'index' ]);
 });
+
+Route::get('/listing/{uuid}/{slug}', [ ListingController::class, 'show' ]);
 
 Route::get('/companies', [ CompanyController::class, 'index' ]);
 Route::get('/company/{uuid}/{slug}', [ CompanyController::class, 'single' ]);
