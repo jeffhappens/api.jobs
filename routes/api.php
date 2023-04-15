@@ -46,7 +46,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/user', [ UserController::class, 'authenticatedUser' ]);
     Route::post('/change-password', [ NewPasswordController::class, 'fromAccountPanel' ]);
-    
+
     Route::prefix('companies')->group(function() {
         Route::get('/edit/{id}', [ CompanyController::class, 'edit' ]);
         Route::get('/{uuid}', [ CompanyController::class, 'show' ]);
@@ -55,9 +55,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('company')->group(function() {
 
         Route::post('/add', [ CompanyController::class, 'store' ]);
-        Route::post('/update', [ CompanyController::class, 'update' ]);    
-        Route::post('/logo/add', [ CompanyController::class, 'logo' ]);    
-        Route::get('/{uuid}/{slug}', [ CompanyController::class, 'single' ]);
+        Route::post('/update', [ CompanyController::class, 'update' ]);
+        Route::post('/logo/add', [ CompanyController::class, 'logo' ]);
+
 
     });
 
@@ -125,7 +125,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 'apply_link.value.email' => 'The Apply Link must be a valid Email Address',
             ]
         );
-        
+
     });
 
     // Route::post('/listing/validate', function(ListingRequest $request) {
@@ -143,6 +143,7 @@ Route::prefix('listings')->group(function() {
 });
 
 Route::get('/companies', [ CompanyController::class, 'index' ]);
+Route::get('/companies/{uuid}/{slug}', [ CompanyController::class, 'single' ]);
 
 Route::prefix('industries')->group(function() {
     Route::get('/', [ IndustryController::class, 'index' ]);
