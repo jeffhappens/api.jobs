@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\State;
 use App\Models\JobType;
+use App\Models\ReportLabel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -19,13 +20,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'uuid' => Str::uuid(),
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        //     'email_verified_at' => now(),
-        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password`
-        // ]);
+        \App\Models\User::factory()->create([
+            'uuid' => Str::uuid(),
+            'role' => 64,
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password`
+        ]);
 
         $states = [
             'AL'=>'ALABAMA',
@@ -146,6 +148,20 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()
 
             ]);
+        }
+
+
+        $report_labels = [
+            'The listing contains false or misleading information.',
+            'The listing is discriminatory.',
+            'The listing is a scam.',
+            'The listing violates the the website terms of service'
+        ];
+
+        foreach($report_labels as $key => $value) {
+            $reportLabel = new ReportLabel;
+            $reportLabel->label = $value;
+            $reportLabel->save();
         }
 
         // \App\Models\Company::factory(25)->create();

@@ -58,7 +58,7 @@ class ListingService {
                 'title' => $data['title'],
                 'slug' => Str::slug($data['title']),
                 'description' => $data['description'],
-                'apply_link' => $data['apply_link']['value'],
+                'apply_link' => $data['apply_link'] || $data['apply_link']['value'],
                 'company_id' => $data['company_id'],
                 'industry_id' => $data['industry_id']
             ]

@@ -1,35 +1,36 @@
 <?php
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
-
 use Stripe\Stripe;
 use Stripe\Webhook;
-
 use App\Models\State;
 use App\Models\Company;
 use App\Models\Listing;
+
 use App\Models\Industry;
+use Illuminate\Support\Str;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\TemporaryFolder;
 use App\Models\TemporaryListing;
-
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\StateController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\ListingController;
-use App\Http\Controllers\WebhookController;
-use App\Http\Controllers\IndustryController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\TemporaryListingController;
-
 use App\Services\CompanyService;
 use App\Services\ListingService;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\ListingRequest;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ListingController;
+
+use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\IndustryController;
+
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\TemporaryListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,11 +128,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         );
 
     });
-
-    // Route::post('/listing/validate', function(ListingRequest $request) {
-    //     return;
-    // });
-
 });
 
 
@@ -153,6 +149,9 @@ Route::prefix('industries')->group(function() {
 });
 
 Route::post('/search', [ SearchController::class, 'index' ]);
+
+Route::get('/reportlabels', [ ReportController::class, 'getLabels' ]);
+Route::post('/submitreport', [ ReportController::class, 'submitReport' ]);
 
 Route::prefix('webhook')->group(function() {
 
