@@ -11,9 +11,9 @@ class IndustryService
         $industries = Industry::withCount([
             'listings' => function ($query) {
                 $query->where('expires_at', '>', now());
-            }
+            },
         ])
-        ->get();
+            ->get();
 
         return $industries;
     }
@@ -21,12 +21,12 @@ class IndustryService
     public function listings($slug)
     {
         $listings = Industry::with([
-            'listings' => function($query) {
+            'listings' => function ($query) {
                 $query->where('expires_at', '>', now());
-            }
+            },
         ])
-        ->where('slug', $slug)
-        ->first();
+            ->where('slug', $slug)
+            ->first();
 
         return $listings;
     }

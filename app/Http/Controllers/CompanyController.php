@@ -17,8 +17,6 @@ class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function index(CompanyService $company): JsonResponse
     {
@@ -37,8 +35,6 @@ class CompanyController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CompanyRequest $request, CompanyService $companyService): JsonResponse
     {
@@ -51,7 +47,6 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function show($id): Collection
     {
