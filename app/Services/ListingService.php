@@ -31,6 +31,9 @@ class ListingService
             ])
             ->first();
 
+        $expired = $listing->expires_at < now();
+        $listing->expired = $expired;
+
         return $listing;
     }
 
