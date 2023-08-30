@@ -72,13 +72,17 @@ class CompanyService
 
     public function single($uuid, $slug)
     {
-        $company = Company::with('listings')
-            ->with('industry')
-            ->where([
-                'uuid' => $uuid,
-                'slug' => $slug,
-            ])
-            ->first();
+        $company = Company::with([
+            'listings' => function($query) {
+                $query->where('expires_at', '>', now());
+            }
+        ])
+        ->with('industry')
+        ->where([
+            'uuid' => $uuid,
+            'slug' => $slug,
+        ])
+        ->first();
 
         return $company;
     }
