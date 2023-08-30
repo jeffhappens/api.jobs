@@ -11,10 +11,14 @@ class CompanyService
 {
     public function all()
     {
-        $company = Company::withCount('listings')
-            ->with('industry')
-            ->orderBy('name', 'asc')
-            ->paginate(15);
+        $company = Company::withCount([
+            'listings' => function($query) {
+                $query->where('expires_at', '>', now());
+            }
+        ])
+        ->with('industry')
+        ->orderBy('name', 'asc')
+        ->paginate(15);
 
         return $company;
     }
