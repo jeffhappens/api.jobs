@@ -70,7 +70,7 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function edit($id): Collection
+    public function edit($id)
     {
         return Company::where('id', $id)->first();
     }
