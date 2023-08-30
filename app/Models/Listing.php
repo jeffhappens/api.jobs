@@ -11,6 +11,8 @@ class Listing extends Model
 
     protected $guarded = [];
 
+    protected $with = ['company'];
+
     protected $appends = ['expired'];
 
     protected $casts = [

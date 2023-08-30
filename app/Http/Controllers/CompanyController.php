@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\TemporaryFolder;
 use App\Services\CompanyService;
 use App\Services\UploadService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -50,9 +51,9 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function show($id): \Illuminate\Database\Eloquent\Collection
+    public function show($id): Collection
     {
         $companies = Company::withCount('listings')
             ->with('industry')
@@ -67,9 +68,9 @@ class CompanyController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function edit($id)
+    public function edit($id): Collection
     {
         return Company::where('id', $id)->first();
     }
