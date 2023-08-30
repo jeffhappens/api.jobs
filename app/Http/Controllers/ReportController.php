@@ -8,14 +8,10 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    
     public function getLabels()
     {
-        return response()->json( ReportLabel::get() );
+        return response()->json(ReportLabel::get());
     }
-
-
-
 
     public function submitReport(Request $request)
     {
@@ -28,6 +24,5 @@ class ReportController extends Controller
         $report->reason_label_id = $reason_id;
         $report->comments = $comments;
         $report->save();
-
     }
 }

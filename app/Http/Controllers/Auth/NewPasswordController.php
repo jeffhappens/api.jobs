@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 
 class NewPasswordController extends Controller
@@ -38,9 +38,9 @@ class NewPasswordController extends Controller
                     'password' => Hash::make($request->password),
                     'remember_token' => Str::random(60),
                 ])->save();
-                
+
                 event(new PasswordReset($user));
-                
+
             }
         );
 
@@ -53,16 +53,13 @@ class NewPasswordController extends Controller
         return response()->json(['status' => __($status)]);
     }
 
-
-
-        /**
+    /**
      * Handle an incoming new password request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function fromAccountPanel(Request $request): JsonResponse
     {
-
         $validator = $request->validate([
             'password' => ['required', Rules\Password::defaults()],
         ]);
@@ -71,7 +68,7 @@ class NewPasswordController extends Controller
         $currentPassword = $request->get('password');
         $newPassword = $request->get('newPassword');
 
-        if( Hash::check($currentPassword, $userPassword) ) {
+        if (Hash::check($currentPassword, $userPassword)) {
 
             $user = User::find($request->user()->id);
             $user->password = Hash::make($newPassword);
@@ -80,10 +77,8 @@ class NewPasswordController extends Controller
         } else {
 
             throw ValidationException::withMessages(['Current password could not be validated.']);
-
         }
 
-        return response()->json( Hash::check($currentPassword, $userPassword) );
-
+        return response()->json(Hash::check($currentPassword, $userPassword));
     }
 }

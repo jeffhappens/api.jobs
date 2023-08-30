@@ -2,28 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\JobType;
 use App\Models\Listing;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 
-class ListingService {
-
+class ListingService
+{
     public function all()
     {
         $listings = Listing::with('company')
             ->with('industry')
-            ->where( 'expires_at','>', now() )
+            ->where('expires_at', '>', now())
             ->orderBy('renewed_on', 'desc')
             ->orderBy('created_at', 'desc')
             ->latest()
             ->paginate(10);
-        
+
         return $listings;
     }
-
-
-
 
     public function show($uuid, $slug)
     {
@@ -32,24 +27,18 @@ class ListingService {
             ->with('type')
             ->where([
                 'uuid' => $uuid,
-                'slug' => $slug
+                'slug' => $slug,
             ])
             ->first();
 
         return $listing;
     }
-    
-    
-    
-    
-    
+
     public function add($data)
     {
-        // return $data;
-
         $listing = Listing::updateOrCreate(
             [
-                'uuid' => $data['uuid']
+                'uuid' => $data['uuid'],
             ],
             [
                 'uuid' => Str::uuid(),
@@ -60,13 +49,13 @@ class ListingService {
                 'description' => $data['description'],
                 'apply_link' => $data['apply_link'] || $data['apply_link']['value'],
                 'company_id' => $data['company_id'],
-                'industry_id' => $data['industry_id']
+                'industry_id' => $data['industry_id'],
             ]
         );
+
         return $listing;
 
     }
-
 
     public function mylistings($uuid)
     {
@@ -78,6 +67,4 @@ class ListingService {
 
         return $listings;
     }
-
-    
 }

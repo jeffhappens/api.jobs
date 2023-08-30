@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Company;
-use App\Models\Industry;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
 {
@@ -19,7 +17,6 @@ class Listing extends Model
         'created_at' => 'date:m/d/Y',
         'expires_at' => 'date:m/d/Y',
         'renewed_on' => 'date:m/d/Y',
-
     ];
 
     public function getExpiredAttribute()
@@ -27,16 +24,18 @@ class Listing extends Model
         return $this->expires_at < now();
     }
 
-    public function company() {
+    public function company()
+    {
         return $this->belongsTo(Company::class);
     }
 
-    public function industry() {
+    public function industry()
+    {
         return $this->belongsTo(Industry::class);
     }
 
-    public function type() {
+    public function type()
+    {
         return $this->belongsTo(JobType::class);
     }
-
 }

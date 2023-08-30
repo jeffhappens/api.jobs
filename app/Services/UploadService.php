@@ -2,38 +2,26 @@
 
 namespace App\Services;
 
-use Intervention\Image\Image as Image;
+// use Intervention\Image\Image as Image;
 
-class UploadService {
-    
-    
-    
-    
+class UploadService
+{
     public function __construct()
     {
         //
     }
-    
-    
-    
-    
-    public function getImageWidth($image): Int
+
+    public function getImageWidth($image): int
     {
         return $image->width();
     }
-    
-    
-    
-    
-    public function getImageHeight($image): Int
+
+    public function getImageHeight($image): int
     {
         return $image->height();
     }
-    
-    
-    
-    
-    public function getImageOrientation($image) : String
+
+    public function getImageOrientation($image): string
     {
         $options = [
             'landscape' => $this->getImageWidth($image) > $this->getImageHeight($image),
@@ -42,16 +30,14 @@ class UploadService {
         ];
 
         $option = array_search(true, $options);
+
         return $option;
 
     }
-    
-    
-    
-    
+
     public function squareImage($image)
     {
-        switch( $orientation = $this->getImageOrientation($image) ) {
+        switch ($orientation = $this->getImageOrientation($image)) {
 
             case 'square':
                 return;
@@ -69,20 +55,18 @@ class UploadService {
 
     }
 
-
-
-
     public function resizeImage($image, $width, $height)
     {
         $image->resize($width, $height);
+
         return $image;
 
     }
 
-
     public function cropImage($image, $width, $height)
     {
         $image->crop($width, $height);
+
         return $image;
 
     }

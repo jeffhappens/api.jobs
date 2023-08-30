@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\IndustryService;
+use Illuminate\Http\Request;
 
 class IndustryController extends Controller
 {
@@ -14,7 +14,7 @@ class IndustryController extends Controller
      */
     public function index(IndustryService $industryService)
     {
-        return response()->json( $industryService->all() );
+        return response()->json($industryService->all());
     }
 
     /**
@@ -30,7 +30,6 @@ class IndustryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -63,7 +62,6 @@ class IndustryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -83,16 +81,15 @@ class IndustryController extends Controller
         //
     }
 
-
     /**
      * Display a listing of the  the specified resource.
      *
-     * @param  String  $slug
      * @return \Illuminate\Http\Response
      */
     public function listings(IndustryService $industryService, $slug)
     {
         $listings = $industryService->listings($slug);
+
         return response()->json($listings);
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use Illuminate\Http\Request;
 use App\Services\ListingService;
+use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
@@ -15,7 +15,7 @@ class ListingController extends Controller
      */
     public function index(ListingService $listings)
     {
-        return response()->json( $listings->all() );
+        return response()->json($listings->all());
     }
 
     /**
@@ -25,18 +25,15 @@ class ListingController extends Controller
      */
     public function create(Request $request, ListingService $listingService)
     {
-        
-        $listing_fields = ['uuid', 'title','type_id', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
-        $listing = $listingService->add( $request->only($listing_fields) );
+        $listing_fields = ['uuid', 'title', 'type_id', 'apply_link', 'description', 'author_uuid', 'company_id', 'industry_id'];
+        $listing = $listingService->add($request->only($listing_fields));
 
         return $listing;
-
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,12 +44,13 @@ class ListingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  String  $uuid
+     * @param  string  $uuid
      * @return \Illuminate\Http\Response
      */
     public function show(ListingService $listingService, $uuid, $slug)
     {
         $listing = $listingService->show($uuid, $slug);
+
         return response()->json($listing);
     }
 
@@ -64,25 +62,22 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
-        return Listing::with('company')->where('uuid', $id)->first();
-        
+        return Listing::with('company')
+            ->where('uuid', $id)
+            ->first();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(ListingService $listingService, Request $request)
     {
-
-        $listing = $listingService->add( $request->all() );
+        $listing = $listingService->add($request->all());
 
         return $listing;
-
-        
     }
 
     /**
@@ -96,17 +91,15 @@ class ListingController extends Controller
         //
     }
 
-
     /**
      * Display a list of a specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function mylistings(ListingService $listingService, Request $request)
     {
         $listings = $listingService->mylistings($request->user()->uuid);
+
         return response()->json($listings);
     }
-
 }

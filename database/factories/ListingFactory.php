@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Listing>
@@ -29,9 +29,9 @@ class ListingFactory extends Factory
             'type_id' => 1,
             'company_id' => \App\Models\Company::all()->random()->id,
             'industry_id' => \App\Models\Industry::all()->random()->id,
-            'description' => fake()->sentence( fake()->numberBetween(50, 150) ),
+            'description' => fake()->sentence(fake()->numberBetween(50, 150)),
             'apply_link' => fake()->url(),
-            'expires_at' => Carbon::now()->addMonth()
+            'expires_at' => Carbon::now()->addMonth(),
         ];
     }
 }

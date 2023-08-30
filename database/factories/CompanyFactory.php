@@ -2,15 +2,16 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
  */
 class CompanyFactory extends Factory
 {
-    public $industry = ['Business/Finance','Agriculture', 'Information Technology','Software Development','Hospitality','Recreation','Automotive'];
+    public $industry = ['Business/Finance', 'Agriculture', 'Information Technology', 'Software Development', 'Hospitality', 'Recreation', 'Automotive'];
+
     /**
      * Define the model's default state.
      *
@@ -20,7 +21,7 @@ class CompanyFactory extends Factory
     {
         $name = fake()->company();
         $uuid = Str::uuid();
-        
+
         return [
             'uuid' => $uuid,
             'name' => $name,
@@ -34,7 +35,7 @@ class CompanyFactory extends Factory
             'zip' => fake()->postcode(),
             'url' => fake()->url(),
             'logo' => 'placeholder.png',
-            'description' => fake()->sentence(60)
+            'description' => fake()->sentence(60),
         ];
     }
 }

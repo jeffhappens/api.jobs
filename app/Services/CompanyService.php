@@ -3,41 +3,34 @@
 namespace App\Services;
 
 use App\Models\Company;
-use Illuminate\Support\Str;
 use App\Models\TemporaryFolder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
-class CompanyService {
-
+class CompanyService
+{
     public function all()
     {
         $company = Company::withCount('listings')
             ->with('industry')
-            ->orderBy('name','asc')
+            ->orderBy('name', 'asc')
             ->paginate(15);
 
         return $company;
     }
-    
-    
-    
-    
-    
+
     public function add($data)
     {
         $d = $data['company'];
         $logo = null;
 
-        if( !isset($data['logo']) || is_null( $data['logo'] ) ) {
+        if (! isset($data['logo']) || is_null($data['logo'])) {
             $logo = 'placeholder.png';
         } else {
-            $fileObj = TemporaryFolder::where( 'folder', $data['logo'] )->first();
-            
+            $fileObj = TemporaryFolder::where('folder', $data['logo'])->first();
             $folder = $fileObj->folder;
             $file = $fileObj->file;
-
             $f = Storage::get('public/tmp/'.$folder.'/'.$file);
-            
             // mv the file to permanent disk
             Storage::disk('public')
                 ->writeStream(
@@ -45,17 +38,14 @@ class CompanyService {
                     Storage::disk('public')
                         ->readStream('tmp/'.$folder.'/'.$file)
                 );
-
             Storage::disk('public')->deleteDirectory('tmp/'.$folder);
             $logo = 'logos/'.$folder.'/'.$file;
         }
 
-        
-
         $company = Company::updateOrCreate(
             [
                 'name' => $d['name'],
-                'author' => $d['author']
+                'author' => $d['author'],
             ],
             [
                 'uuid' => Str::uuid(),
@@ -68,38 +58,28 @@ class CompanyService {
                 'city' => $d['city'],
                 'state' => $d['state'],
                 'zip' => $d['zip'],
-                'description' => $d['description']
+                'description' => $d['description'],
             ]
         );
+
         return $company;
     }
-    
-    
-    
-    
-    
-    public function logo($file) {
 
+    public function logo($file)
+    {
         return $file;
-
     }
-    
-    
-    
-    
-    
+
     public function single($uuid, $slug)
     {
         $company = Company::with('listings')
-        ->with('industry')
-        ->where([
-            'uuid' => $uuid,
-            'slug' => $slug
-        ])
-        ->first();
+            ->with('industry')
+            ->where([
+                'uuid' => $uuid,
+                'slug' => $slug,
+            ])
+            ->first();
 
         return $company;
-
     }
-
 }

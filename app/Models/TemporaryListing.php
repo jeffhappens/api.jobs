@@ -11,11 +11,13 @@ class TemporaryListing extends Model
 
     protected $fillable = ['user_uuid', 'title', 'industry_id', 'company_id', 'apply_link', 'job_type_id', 'description'];
 
-    public function industry() {
+    public function industry()
+    {
         return $this->belongsTo(Industry::class);
     }
 
-    public function company() {
+    public function company()
+    {
         return $this->belongsTo(Company::class);
     }
 }

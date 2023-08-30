@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use Illuminate\Http\Request;
-use App\Models\TemporaryFolder;
-use App\Services\UploadService;
-use App\Services\CompanyService;
 use App\Http\Requests\CompanyRequest;
+use App\Models\Company;
+use App\Models\TemporaryFolder;
+use App\Services\CompanyService;
+use App\Services\UploadService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -20,7 +20,7 @@ class CompanyController extends Controller
      */
     public function index(CompanyService $company)
     {
-        return response()->json( $company->all() );
+        return response()->json($company->all());
     }
 
     /**
@@ -36,14 +36,13 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CompanyRequest $request, CompanyService $companyService)
     {
-        $company = $companyService->add( $request->all() );
-        return response()->json( $company );
-        
+        $company = $companyService->add($request->all());
+
+        return response()->json($company);
     }
 
     /**
@@ -61,7 +60,6 @@ class CompanyController extends Controller
             ->get();
 
         return $companies;
-
     }
 
     /**
@@ -78,7 +76,6 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -86,9 +83,7 @@ class CompanyController extends Controller
     {
         $c = $request->get('company');
         $l = $request->get('logo');
-
         $company = Company::find($c['id']);
-
         $company->name = $c['name'];
         $company->address = $c['address'];
         $company->city = $c['city'];
@@ -97,14 +92,10 @@ class CompanyController extends Controller
         $company->email = $c['email'];
         $company->url = $c['url'];
 
-
-        if(!$l) {
+        if (! $l) {
             $company->logo = $c['logo'];
         } else {
-
-            // $explodedPath = explode('/', $l);
             $folder = $l;
-            
             $tempFile = TemporaryFolder::where('folder', $folder)->first();
 
             // mv the file to permanent disk
@@ -116,12 +107,9 @@ class CompanyController extends Controller
                 );
 
             Storage::disk('public')->deleteDirectory('tmp/'.$folder);
-            // return $tempFile;
-            
             $company->logo = 'logos/'.$tempFile->folder.'/'.$tempFile->file;
         }
-        
-        
+
         $company->industry_id = $c['industry_id'];
         $company->description = $c['description'];
         $company->author = $c['author'];
@@ -141,34 +129,29 @@ class CompanyController extends Controller
         //
     }
 
-
-
     /**
      * Store a newly created logo resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function logo(Request $request, CompanyService $companyService)
     {
-
         $request->validate([
-            'filepond' => 'file|required|mimes:png,jpeg'
+            'filepond' => 'file|required|mimes:png,jpeg',
         ]);
-
         $file = $request->file('filepond');
         $folder = uniqid();
+
         $path = $file->hashName('public/tmp/'.$folder);
-        
+
         $image = Image::make($file);
 
         $uploadService = new UploadService;
         $squaredImage = $uploadService->squareImage($image);
         $resizedImage = $uploadService->resizeImage($image, 250, 250);
         $encodedImage = $resizedImage->encode('jpg', 100);
-        
+
         Storage::put($path, (string) $encodedImage);
-        
 
         $explodedPath = explode('/', $path);
 
@@ -177,10 +160,8 @@ class CompanyController extends Controller
         $temporaryFolder->file = $explodedPath[3];
         $temporaryFolder->save();
 
-
-        return response()->json(['folder' => $explodedPath[2], 'filename' => $explodedPath[3] ]);
+        return response()->json(['folder' => $explodedPath[2], 'filename' => $explodedPath[3]]);
     }
-
 
     /**
      * Display a listing of the resource.
@@ -189,6 +170,6 @@ class CompanyController extends Controller
      */
     public function single(CompanyService $companyService, $uuid, $slug)
     {
-        return response()->json( $companyService->single($uuid, $slug) );
+        return response()->json($companyService->single($uuid, $slug));
     }
 }

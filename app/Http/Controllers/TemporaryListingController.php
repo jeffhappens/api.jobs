@@ -29,14 +29,13 @@ class TemporaryListingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $tempListing = TemporaryListing::updateOrCreate(
-            
-            [ 'user_uuid' => $request->get('user_uuid') ],
+
+            ['user_uuid' => $request->get('user_uuid')],
 
             [
                 'title' => $request->get('title'),
@@ -44,9 +43,10 @@ class TemporaryListingController extends Controller
                 'company_id' => $request->get('company')['id'],
                 'apply_link' => $request->get('apply_link'),
                 'job_type_id' => 1,
-                'description' => $request->get('description')
+                'description' => $request->get('description'),
             ]
         );
+
         return $tempListing;
     }
 
@@ -63,7 +63,7 @@ class TemporaryListingController extends Controller
             ->where('user_uuid', $uuid)
             ->latest()
             ->first();
-            
+
         return $tempListing;
     }
 
@@ -81,7 +81,6 @@ class TemporaryListingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

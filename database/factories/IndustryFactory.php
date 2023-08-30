@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Industry>
@@ -23,7 +23,7 @@ class IndustryFactory extends Factory
             'Agriculture',
             'Business & Finance',
             'Construction',
-            'Distribution', 
+            'Distribution',
             'Electronics',
             'Health Care',
             'Human Resources',
@@ -38,14 +38,13 @@ class IndustryFactory extends Factory
             'Software',
             'Telecommunications',
             'Trade',
-
-
         ];
         $industry = array_rand($industries);
         $slug = Str::slug($industry);
+
         return [
             'label' => $industry,
-            'slug' => $slug
+            'slug' => $slug,
         ];
     }
 }

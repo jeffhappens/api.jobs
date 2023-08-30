@@ -3,33 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class WebhookController extends Controller
 {
-    
     public function stripe()
     {
-
-        \Stripe\Stripe::setApiKey( config('services.stripe.test_secret') );
+        \Stripe\Stripe::setApiKey(config('services.stripe.test_secret'));
         $endpoint_secret = config('services.stripe.webhook_secret');
-
         $payload = @file_get_contents('php://input');
         $event = null;
-    
+
         try {
             $event = \Stripe\Event::constructFrom(
                 json_decode($payload, true)
             );
-        } catch(\UnexpectedValueException $e) {
+        } catch (\UnexpectedValueException $e) {
             // Invalid payload
             Log::info('Webhook error while parsing basic request.');
             abort(500);
             exit();
         }
-        
+
         if ($endpoint_secret) {
             // Only verify the event if there is an endpoint secret defined
             // Otherwise use the basic decoded event
@@ -38,27 +34,23 @@ class WebhookController extends Controller
                 $event = \Stripe\Webhook::constructEvent(
                     $payload, $sig_header, $endpoint_secret
                 );
-            } catch(\Stripe\Exception\SignatureVerificationException $e) {
+            } catch (\Stripe\Exception\SignatureVerificationException $e) {
                 // Invalid signature
                 Log::info('Webhook error while validating signature.');
                 abort(500);
-                // http_response_code(400);
                 exit();
             }
         }
-    
+
         // Handle the event
         switch ($event->type) {
             case 'checkout.session.completed':
                 $checkoutSession = $event->data->object; // contains a \Stripe\PaymentIntent
-
                 $author_uuid = $checkoutSession->client_reference_id;
-    
                 $listing = Listing::where('author_uuid', $author_uuid)->latest()->first();
                 $listing->expires_at = Carbon::now()->addMonth();
                 $listing->save();
-    
-    
+
                 Log::info($listing);
                 break;
 
@@ -68,6 +60,5 @@ class WebhookController extends Controller
         }
 
         http_response_code(200);
-
     }
 }

@@ -14,13 +14,11 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        
         $listings = Listing::with('company')
-            ->where('title','like','%'.$request->get('keyword').'%')
+            ->where('title', 'like', '%'.$request->get('keyword').'%')
             ->paginate(25);
 
-        return response()->json( $listings );
-
+        return response()->json($listings);
     }
 
     /**
@@ -36,7 +34,6 @@ class SearchController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -69,7 +66,6 @@ class SearchController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
