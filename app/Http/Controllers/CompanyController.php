@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\TemporaryFolder;
 use App\Services\CompanyService;
 use App\Services\UploadService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -16,9 +17,9 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(CompanyService $company)
+    public function index(CompanyService $company): JsonResponse
     {
         return response()->json($company->all());
     }
@@ -36,9 +37,9 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CompanyRequest $request, CompanyService $companyService)
+    public function store(CompanyRequest $request, CompanyService $companyService): JsonResponse
     {
         $company = $companyService->add($request->all());
 
@@ -51,7 +52,7 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): \Illuminate\Database\Eloquent\Collection
     {
         $companies = Company::withCount('listings')
             ->with('industry')
@@ -79,7 +80,7 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request): Company
     {
         $c = $request->get('company');
         $l = $request->get('logo');
@@ -134,7 +135,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function logo(Request $request, CompanyService $companyService)
+    public function logo(Request $request, CompanyService $companyService): JsonResponse
     {
         $request->validate([
             'filepond' => 'file|required|mimes:png,jpeg',
