@@ -16,6 +16,7 @@ class SearchController extends Controller
     {
         $listings = Listing::with('company')
             ->where('title', 'like', '%'.$request->get('keyword').'%')
+            ->where('expires_at', '>', now())
             ->paginate(25);
 
         return response()->json($listings);
